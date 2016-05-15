@@ -74,6 +74,11 @@ public class AlgorithmImpl implements Algorithm {
         return shortestPath != null && !shortestPath.isEmpty();
     }
 
+    /*
+        Source: http://nakkaya.com/2010/06/01/path-finding-using-astar-in-clojure/
+
+        Sadly the Unit tests are failing, but it was fun to try...
+     */
     private LinkedList<Node> AStarPathFinding(int startId, int endId) {
         LinkedList<Node> path = new LinkedList<>();
 
