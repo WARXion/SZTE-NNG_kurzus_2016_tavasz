@@ -15,7 +15,7 @@ public interface Algorithm {
 	 * @param graph
 	 *            the graph on which you will optimize
 	 */
-	void preprocess(Graph graph);
+	void preProcess(Graph graph);
 
 	/**
 	 * Implement shortest path search minimizing the travel distance between two

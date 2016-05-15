@@ -98,7 +98,7 @@ public class NavigationTest {
 		Graph graph = new GraphImpl();
 		graph.initializeFromFile(inputGraph);
 		Algorithm navigation = new AlgorithmImpl();
-		navigation.preprocess(graph);
+		navigation.preProcess(graph);
 		return navigation;
 	}
 

@@ -6,6 +6,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,14 +15,14 @@ import java.util.Map;
  * Implement your graph representation here. This class will be instantiated
  * during the unit tests.
  */
-@XmlRootElement(name="graph")
+@XmlRootElement(name = "graph")
 public class GraphImpl implements Graph {
     private List<Node> nodes;
     private List<Edge> edges;
 
-	@Override
-	public void initializeFromFile(File inputXmlFile) {
-        File inputGraph = new File("test_graph.xml");
+    @Override
+    public void initializeFromFile(File inputXmlFile) {
+        File inputGraph = new File("graph.xml");
 
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(GraphImpl.class);
@@ -30,26 +31,51 @@ public class GraphImpl implements Graph {
             GraphImpl graph = (GraphImpl) jaxbUnmarshaller.unmarshal(inputGraph);
 
             Map<String, Integer> mappedEdgeProperties = new HashMap<>();
-            Map<String, Double> mappedNodeProperties = new HashMap<>();
+            List<Node> nodeList = new ArrayList<>();
+            List<Edge> edgeList = new ArrayList<>();
+
+            for (Node node : graph.getNodes()) {
+                Node newNode = new Node();
+
+                newNode.setId(node.getId());
+                newNode.setyCoord(node.getProperties().get(0).getValue());
+                newNode.setxCoord(node.getProperties().get(1).getValue());
+
+                nodeList.add(newNode);
+            }
 
             for (Edge edge : graph.getEdges()) {
+                Edge newEdge = new Edge();
+
                 for (EdgeProperty edgeProperty : edge.getProperties()) {
                     mappedEdgeProperties.put(edgeProperty.getAttribute(), edgeProperty.getValue());
                 }
 
-                edge.setMappedProperties(mappedEdgeProperties);
+                Node startNode = nodeList.get(mappedEdgeProperties.get("startNode") - 1);
+                Node endNode = nodeList.get(mappedEdgeProperties.get("endNode") - 1);
+
+                newEdge.setId(edge.getId());
+                newEdge.setStartNode(startNode);
+                newEdge.setEndNode(endNode);
+                newEdge.setAverageSpeed(mappedEdgeProperties.get("averageSpeed"));
+
+                newEdge.setEdgeLength(Math.sqrt(Math.pow(Math.abs(startNode.getxCoord() - endNode.getxCoord()), 2)
+                        + Math.pow(Math.abs(startNode.getyCoord() - endNode.getyCoord()), 2)));
+
+                newEdge.setTimeToTravel(newEdge.getEdgeLength() / newEdge.getAverageSpeed());
+
+                edgeList.add(newEdge);
+                startNode.getEdges().add(newEdge);
             }
 
-            for (Node node : graph.getNodes()) {
-                for (NodeProperty nodeProperty : node.getProperties()) {
-                    mappedNodeProperties.put(nodeProperty.getAttribute(), nodeProperty.getValue());
+            for (Node node : nodeList) {
+                for (int i = 0; i != node.getEdges().size(); i++) {
+                    node.getChildren().add(node.getEdges().get(i).getEndNode());
                 }
-
-                node.setMappedProperties(mappedNodeProperties);
             }
 
-            setEdges(graph.getEdges());
-            setNodes(graph.getNodes());
+            setEdges(edgeList);
+            setNodes(nodeList);
         } catch (JAXBException exception) {
             exception.printStackTrace();
         }

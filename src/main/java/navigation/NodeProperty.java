@@ -7,7 +7,7 @@ public class NodeProperty {
     private String attribute;
     private double value;
 
-    @XmlAttribute(name="name")
+    @XmlAttribute(name = "name")
     public String getAttribute() {
         return attribute;
     }

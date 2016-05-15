@@ -3,13 +3,20 @@ package navigation;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class Node {
     private int id;
+    private double xCoord;
+    private double yCoord;
+    private double fScore;
+    private double hScore;
+    private double gScore;
+    private Node parent;
+    private List<Node> children = new LinkedList<>();
+    private List<Edge> edges = new LinkedList<>();
     private List<NodeProperty> properties;
-    private Map<String, Double> mappedProperties;
 
     @XmlAttribute(name = "id")
     public int getId() {
@@ -29,11 +36,67 @@ public class Node {
         this.properties = properties;
     }
 
-    public Map<String, Double> getMappedProperties() {
-        return mappedProperties;
+    public double getxCoord() {
+        return xCoord;
     }
 
-    public void setMappedProperties(Map<String, Double> mappedProperties) {
-        this.mappedProperties = mappedProperties;
+    public void setxCoord(double xCoord) {
+        this.xCoord = xCoord;
+    }
+
+    public double getyCoord() {
+        return yCoord;
+    }
+
+    public void setyCoord(double yCoord) {
+        this.yCoord = yCoord;
+    }
+
+    public double getfScore() {
+        return fScore;
+    }
+
+    public void setfScore(double fScore) {
+        this.fScore = fScore;
+    }
+
+    public double gethScore() {
+        return hScore;
+    }
+
+    public void sethScore(double hScore) {
+        this.hScore = hScore;
+    }
+
+    public double getgScore() {
+        return gScore;
+    }
+
+    public void setgScore(double gScore) {
+        this.gScore = gScore;
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(LinkedList<Edge> edges) {
+        this.edges = edges;
+    }
+
+    public List<Node> getChildren() {
+        return children;
+    }
+
+    public void setChildren(LinkedList<Node> children) {
+        this.children = children;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 }
