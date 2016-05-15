@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph>
+<node id="1">
+   <property name="yCoord">2.167115748962082</property>
+   <property name="xCoord">2.0552681384302467</property>
+</node>
+<node id="2">
+   <property name="yCoord">18.554572719739912</property>
+   <property name="xCoord">0.797619423024235</property>
+</node>
+<node id="3">
+   <property name="yCoord">30.517795116669475</property>
+   <property name="xCoord">0.37692127670812203</property>
+</node>
+<node id="15">
+   <property name="yCoord">40.85440402596227</property>
+   <property name="xCoord">0.1673044960553216</property>
+</node>
+<edge id="95198">
+   <property name="startNode">18017</property>
+   <property name="endNode">17936</property>
+   <property name="averageSpeed">83</property>
+</edge>
+<edge id="95199">
+   <property name="startNode">38660</property>
+   <property name="endNode">38710</property>
+   <property name="averageSpeed">95</property>
+</edge>
+<edge id="95200">
+   <property name="startNode">38710</property>
+   <property name="endNode">38660</property>
+   <property name="averageSpeed">95</property>
+</edge>
+<edge id="95201">
+   <property name="startNode">25419</property>
+   <property name="endNode">25489</property>
+   <property name="averageSpeed">94</property>
+</edge>
+<edge id="95202">
+   <property name="startNode">25489</property>
+   <property name="endNode">25419</property>
+   <property name="averageSpeed">94</property>
+</edge>
+</graph>
