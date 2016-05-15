@@ -4,9 +4,24 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
 public class NodeProperty {
-    @XmlAttribute(name="name")
     private String attribute;
+    private double value;
+
+    @XmlAttribute(name="name")
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
 
     @XmlValue
-    private double value;
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 }

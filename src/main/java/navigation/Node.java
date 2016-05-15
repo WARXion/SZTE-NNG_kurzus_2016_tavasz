@@ -4,10 +4,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import java.util.List;
+import java.util.Map;
 
 public class Node {
     private int id;
     private List<NodeProperty> properties;
+    private Map<String, Double> mappedProperties;
 
     @XmlAttribute(name = "id")
     public int getId() {
@@ -25,5 +27,13 @@ public class Node {
 
     public void setProperties(List<NodeProperty> properties) {
         this.properties = properties;
+    }
+
+    public Map<String, Double> getMappedProperties() {
+        return mappedProperties;
+    }
+
+    public void setMappedProperties(Map<String, Double> mappedProperties) {
+        this.mappedProperties = mappedProperties;
     }
 }

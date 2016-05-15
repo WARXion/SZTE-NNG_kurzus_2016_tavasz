@@ -1,15 +1,14 @@
 package navigation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implement your graph representation here. This class will be instantiated
@@ -29,6 +28,25 @@ public class GraphImpl implements Graph {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
             GraphImpl graph = (GraphImpl) jaxbUnmarshaller.unmarshal(inputGraph);
+
+            Map<String, Integer> mappedEdgeProperties = new HashMap<>();
+            Map<String, Double> mappedNodeProperties = new HashMap<>();
+
+            for (Edge edge : graph.getEdges()) {
+                for (EdgeProperty edgeProperty : edge.getProperties()) {
+                    mappedEdgeProperties.put(edgeProperty.getAttribute(), edgeProperty.getValue());
+                }
+
+                edge.setMappedProperties(mappedEdgeProperties);
+            }
+
+            for (Node node : graph.getNodes()) {
+                for (NodeProperty nodeProperty : node.getProperties()) {
+                    mappedNodeProperties.put(nodeProperty.getAttribute(), nodeProperty.getValue());
+                }
+
+                node.setMappedProperties(mappedNodeProperties);
+            }
 
             setEdges(graph.getEdges());
             setNodes(graph.getNodes());
